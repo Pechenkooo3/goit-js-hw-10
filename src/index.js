@@ -1,7 +1,7 @@
 import './css/styles.css';
-import Notiflix, { Notify } from 'notiflix';
+import { Notify } from 'notiflix';
 import debounce from 'lodash.debounce';
-import fetchCountries from './fetchCountries';
+import { fetchCountries } from './fetchCountries.js';
 var debounce = require('lodash.debounce');
 
 const DEBOUNCE_DELAY = 300;
@@ -23,26 +23,12 @@ function onSearch(e) {
       createMurkupList(data);
     } else if (data.length == 1) {
       countryList.innerHTML = '';
-      createMurkupList(data);
+      createMurkupCard(data);
     } else data.length > 10;
     Notify.info('Too many matches found. Please enter a more specific name.');
   });
 }
 
-// function fetchCountries(name) {
-//   return fetch(
-//     '${BASE_URL}${name}?fields=name, capital,population,flags,languages'
-//   )
-//     .then(resp => {
-//       if (!resp.ok) {
-//         throw new Error(
-//           Notify.failure('Oops, there is no country with that name')
-//         );
-//       }
-//       return resp.json();
-//     })
-//     .catch(err => console.error(err));
-// }
 function createMurkupList(arr) {
   const list = arr
     .map(({ flags, name }) => {
@@ -55,12 +41,14 @@ function createMurkupList(arr) {
   countryList.insertAdjacentHTML('beforeend', list);
 }
 function createMurkupCard(arr) {
-  const list = arr.map(({ name, capital, population, flags, languages }) => {
-    return ` <div class = "title">
+  const list = arr
+    .map(({ name, capital, population, flags, languages }) => {
+      return ` <div class = "title">
   <li class = 'country-item'>
   <img srs ="${flags.svg}" alt ="${name.official}" width = "40x" height ="40px">
   <p class = "country-name"> ${name.official}</p>
   </li>
     </div>`;
-  });
+    })
+    .join('');
 }

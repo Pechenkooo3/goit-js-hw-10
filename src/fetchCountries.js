@@ -12,5 +12,5 @@ function fetchCountries(countryName) {
     return resp.json();
   });
 }
-fetchCountries().then(data => console.log(data));
-export default { fetchCountries };
+
+export { fetchCountries };
