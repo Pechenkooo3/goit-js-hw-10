@@ -35,9 +35,9 @@ function onSearch(e) {
         return notifyInfoMessage();
       }
       if (country.length > 1 && country.length < 10) {
-        refs.countryList.innerHTML = createMurkupList(data);
+        refs.countryList.innerHTML = createMurkupList(country);
       } else {
-        refs.countryInfo.innerHTML = createMurkupCard(data);
+        refs.countryInfo.innerHTML = createMurkupCard(country);
       }
     })
     .catch(error => notifyFailureMessage());
